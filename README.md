@@ -15,7 +15,7 @@ Create your project in firebase console and add realtime database functionality.
 We'll need Firebase-CLI to create our cloud function and deploy it to Firebase. You can look at docs if you dont know how to setup Firebase-CLI -> Docs : https://firebase.google.com/docs/functions/get-started
 
 Now go to your Firebase Console and from there go to Firebase Realtime Database section and create a data structure like this(or you can change according to your needs) :
-
+```
 {
   "ilan" : {
     "c0" : "İkinci El ve Sıfır Alışveriş",
@@ -34,32 +34,33 @@ Now go to your Firebase Console and from there go to Firebase Realtime Database 
     "view_count_limit" : 0
   }
 }
+```
 
 DONT FORGET the set the rules of your realtime database to "TRUE"
-
+```
 {
   "rules": {
     ".read": true,
     ".write": true
   }
 }
-
+```
 
 Implementation : (Do your changes in index.js file)
 
 What we are trying to do here is when there is change in my data's "view_count" value. I will send push notification to the topic "data". So user devices can listen to this topic to get the push notifications.
-
+```
 const functions = require('firebase-functions');
 admin.initializeApp(functions.config().firebase);
 exports.sendAdminNotification = functions.database.ref('/data').onWrite(( change,context) => {const data= change.after.val();
 
 });
-
+```
 This code will trigger the cloud function, when there's a change in "data". You can fill the inner part according to your conditions but in this project we'll check if view_count value is greater than limit_view_count. When the view_count exceeded view_count, we'll send a push notification to topic "data". Also I wanted to check for the limit_view_count is set or not. Default value of this attribute is "0" in realtime database. So we can check if this value is zero or not to get the knowledge of if the value is set or not.
 
 
 Code with conditions we want : 
-
+```
 const functions = require('firebase-functions');
 exports.sendAdminNotification = functions.database.ref('/data').onWrite(( change,context) => {const data= change.after.val();
     if(data.view_count_limit != 0){
@@ -79,7 +80,7 @@ exports.sendAdminNotification = functions.database.ref('/data').onWrite(( change
         }
     }
 });
-
+```
 To send these notifications, we also need firebase admin requirements and initialize the app as admin. 
 
 If you havent installed firebase-admin 
