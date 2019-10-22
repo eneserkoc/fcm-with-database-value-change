@@ -19,19 +19,9 @@ We'll need Firebase-CLI to create our cloud function and deploy it to Firebase. 
 Now go to your Firebase Console and from there go to Firebase Realtime Database section and create a data structure like this(or you can change according to your needs) :
 ```
 {
-  "ilan" : {
-    "c0" : "İkinci El ve Sıfır Alışveriş",
-    "c1" : "Anne & Bebek",
-    "c2" : "Ev Tekstili",
-    "c3" : "Yatak",
-    "city" : "İstanbul",
-    "description" : "Mfafqö Dfyfp",
-    "has_promotion" : 1,
-    "id" : 10,
+  "data" : {
     "price" : 160,
     "title" : "Dfyfp çnçrj",
-    "tmp_view_count" : 5,
-    "town" : "Küçükçekmece",
     "view_count" : 4,
     "view_count_limit" : 0
   }
